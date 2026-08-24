@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widget/expenses_list.dart/expenses_list.dart';
 import 'package:flutter/material.dart';
 
 class Expenses extends StatefulWidget{
@@ -26,8 +27,10 @@ class _ExpensesState extends State<Expenses>{
     return Scaffold(
       body: Column(
         children: [
-          Text(_registeredExpenses.toString()),
-          Text("")
+          Text("The Chart"),
+          Expanded(
+            child: ExpensesList(expenses:_registeredExpenses )),
+        
 
         ],
       ),
