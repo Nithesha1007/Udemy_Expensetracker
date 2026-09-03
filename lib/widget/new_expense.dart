@@ -32,7 +32,22 @@ class _NewExpenseState extends State<NewExpense> {
         _selectedDate = pickedDate;
       });
   }
-
+void _submitExpenseData(){
+  final enteredAmount = double.tryParse(_amountController.text);//tryparse('hello')=> null . tryparse('2.7') => 2.7
+  final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+  if(_titleController.text.trim().isEmpty || amountIsInvalid || _selectedDate == null) {//if user not entered the tile , amount,category and click save expense shown a showdialog pop message enter the value 
+    showDialog(context: context, builder: (context) => AlertDialog(
+      title: Text("Invalid Input"),
+      content: Text("Please make entered a title,amount,category"),
+      actions: [
+        TextButton(onPressed: (){
+          Navigator.pop(context);
+        }, child: Text("Okay")),
+      ],
+    ));
+    return;
+  }
+}
   @override//when we use controller must we use the dipose otherwise it live in meomoey  app will crash
   void dispose(){
     _titleController.dispose();
@@ -110,10 +125,8 @@ class _NewExpenseState extends State<NewExpense> {
           TextButton(onPressed: (){
             Navigator.pop(context);//remove from the model bottom sheeet
           }, child: Text("cancel")),
-          ElevatedButton(onPressed: (){
-            print(_titleController.text);
-             print(_amountController.text);
-          }, child: Text("Save Expense")),
+          ElevatedButton(onPressed:_submitExpenseData,//we create a function if null shown error
+           child: Text("Save Expense")),
  
             
         ],)
