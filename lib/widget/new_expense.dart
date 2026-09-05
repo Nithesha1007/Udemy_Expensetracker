@@ -3,7 +3,9 @@ import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final void Function(Expense expense) onAddExpense;//using the function name onaddexpense , use class,listviewbuilder
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -36,7 +38,11 @@ void _submitExpenseData(){
   final enteredAmount = double.tryParse(_amountController.text);//tryparse('hello')=> null . tryparse('2.7') => 2.7
   final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
   if(_titleController.text.trim().isEmpty || amountIsInvalid || _selectedDate == null) {//if user not entered the tile , amount,category and click save expense shown a showdialog pop message enter the value 
-    showDialog(context: context, builder: (context) => AlertDialog(
+    showDialog(
+      
+      context: context, 
+      builder: (context) => AlertDialog(
+        
       title: Text("Invalid Input"),
       content: Text("Please make entered a title,amount,category"),
       actions: [
@@ -47,6 +53,13 @@ void _submitExpenseData(){
     ));
     return;
   }
+  widget.onAddExpense(Expense(//used to print user enter in modelsheet , the widget name is used to access the widget class function 
+    title: _titleController.text, 
+    amount: enteredAmount, //validation amount
+    date: _selectedDate!,//exclaramation teel wont null
+     category: _selectedCategory
+     ));
+     Navigator.pop(context);
 }
   @override//when we use controller must we use the dipose otherwise it live in meomoey  app will crash
   void dispose(){
@@ -58,7 +71,7 @@ void _submitExpenseData(){
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.fromLTRB(16, 48, 16, 16),
     child: Column(
       children: [
         TextField(

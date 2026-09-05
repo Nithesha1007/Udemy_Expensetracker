@@ -25,9 +25,21 @@ class _ExpensesState extends State<Expenses>{
   ];
   void _openAddExpenseOverlay(){
     showModalBottomSheet(
+      isScrollControlled: true,//taking full screen 
       context: context,
-       builder: (context) => NewExpense(),
+       builder: (context) => NewExpense(onAddExpense: _addExpense,),//in new expense it have a function on addexpense, _addexpense was after w register update and shown in home screen using stestate
+
       );
+  }
+  void _addExpense(Expense expense){//for user entered the value and save expense
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+  void _removeExpense(Expense expense){
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
   }
   @override
   Widget build(BuildContext context){
@@ -42,7 +54,8 @@ class _ExpensesState extends State<Expenses>{
         children: [
           Text("The Chart"),
           Expanded(
-            child: ExpensesList(expenses:_registeredExpenses )),
+            child: ExpensesList(expenses:_registeredExpenses, onRemoveExpense: _removeExpense,)),// epd register pandrom internall ah remove vum pandrom using expense list
+            
         
 
         ],
