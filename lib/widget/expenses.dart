@@ -37,12 +37,40 @@ class _ExpensesState extends State<Expenses>{
     });
   }
   void _removeExpense(Expense expense){
+    final expenseIndex = _registeredExpenses.indexOf(expense);//this is for in action onpressed we want index of we create this variable,Before removing the expense, you save its current position.
     setState(() {
       _registeredExpenses.remove(expense);
     });
+    ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(//used to shown in bottom any message 
+        SnackBar//message shown in bottom
+      (
+        content: Text("Expense Deleted"),//to display
+         duration: Duration(seconds: 3),//after three second it disapper
+         action: SnackBarAction(//must provide 
+          label: 'undo', //if user swipe accidentally undo using restore this expense
+          onPressed: (){
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);//if user click undo using that expense index variale and expense we undo this expense
+            });
+          }
+          ),
+      )
+      );
+
   }
   @override
   Widget build(BuildContext context){
+    Widget mainContent = Center(//in output there is not expense in listview then show a text 
+      child: Text("No expenses found, Start adding some !"),
+    );
+    if(_registeredExpenses.isNotEmpty){//if content are there add or remove the listview 
+             mainContent=   ExpensesList(//maincontent is varibale store the expense list remove or add 
+              expenses:_registeredExpenses, // if user add use register here
+              onRemoveExpense: _removeExpense);// epd register pandrom internall ah remove vum pandrom using expense list
+            
+        
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter ExpenseTracker"),
@@ -54,9 +82,8 @@ class _ExpensesState extends State<Expenses>{
         children: [
           Text("The Chart"),
           Expanded(
-            child: ExpensesList(expenses:_registeredExpenses, onRemoveExpense: _removeExpense,)),// epd register pandrom internall ah remove vum pandrom using expense list
-            
-        
+            child: mainContent
+            )
 
         ],
       ),
