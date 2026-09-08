@@ -121,6 +121,7 @@ void _submitExpenseData(){
         Row(children: [
          DropdownButton(
           value: _selectedCategory,
+          // ignore: non_constant_identifier_names
           items: Category.values.map((Category) => DropdownMenuItem(//fetch the category from enum and access all value and add a map method
             value: Category,//after setstate store the category
             child: Text(Category.name.toUpperCase()))//in output our catrgory , name is a property enum,dart,all name should upeercase user the touppercase
