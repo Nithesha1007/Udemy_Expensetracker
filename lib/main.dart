@@ -9,13 +9,29 @@ void main(){
     
         //useMaterial3: true,
        colorScheme: kColorScheme,
-       
        appBarTheme: AppBarTheme().copyWith(//Take the default AppBar theme and change only the properties we specify.
         backgroundColor: kColorScheme.onPrimaryContainer,//This changes the background color of the AppBar.
         foregroundColor: kColorScheme.primaryContainer,//This changes the color of content displayed on top of the AppBar background, such as:title,icon etc
        ),
-       scaffoldBackgroundColor: kColorScheme.onPrimary
+       scaffoldBackgroundColor: kColorScheme.onPrimary,
+       cardTheme: CardThemeData().copyWith(
+        color: kColorScheme.onSecondaryContainer,
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+       ),
+       elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+         backgroundColor: kColorScheme.primary,
         ),
+       ),
+       textTheme: ThemeData().textTheme.copyWith(
+        titleLarge: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 14,
+          color: kColorScheme.onSecondaryContainer,
+        )
+       )
+        ),
+        
          home: Expenses(),
          debugShowCheckedModeBanner: false,
          
