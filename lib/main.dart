@@ -15,18 +15,18 @@ void main(){
        ),
        scaffoldBackgroundColor: kColorScheme.onPrimary,
        cardTheme: CardThemeData().copyWith(
-        color: kColorScheme.onSecondaryContainer,
+        color: kColorScheme.primaryContainer,
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
        ),
        elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-         backgroundColor: kColorScheme.primary,
+         backgroundColor: kColorScheme.primaryContainer,
         ),
        ),
        textTheme: ThemeData().textTheme.copyWith(
         titleLarge: TextStyle(
           fontWeight: FontWeight.normal,
-          fontSize: 14,
+          fontSize: 17,
           color: kColorScheme.onSecondaryContainer,
         )
        )

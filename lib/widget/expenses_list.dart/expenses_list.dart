@@ -15,6 +15,10 @@ class ExpensesList extends StatelessWidget{
       itemCount: expenses.length,
         itemBuilder: (context, index) =>Dismissible(//to swapping effect like left to right
           key: ValueKey(expenses[index]), //must we provide a key 
+          background: Container(
+            color: Theme.of(context).colorScheme.error.withValues(alpha: 0.75),//used to show red colour when user delete the card
+            margin: EdgeInsets.symmetric(horizontal: Theme.of(context).cardTheme.margin!.horizontal),//we set the error red margin here already we set margin in mindart so here override here 
+          ),
           onDismissed: (direction) {
           onRemoveExpense(expenses[index]);
           },
