@@ -1,13 +1,18 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widget/chart/chart.dart';
 import 'package:expense_tracker/widget/expenses_list.dart/expenses_list.dart';
 import 'package:expense_tracker/widget/new_expense.dart';
 import 'package:flutter/material.dart';
 
-class Expenses extends StatefulWidget{
+class Expenses extends StatefulWidget
+
+{
   const Expenses({super.key});
   @override
   State<Expenses>  createState() => _ExpensesState();
+
 }
+
 class _ExpensesState extends State<Expenses>{
   final List<Expense>_registeredExpenses =[//we use the model expense here 
          Expense(
@@ -80,7 +85,7 @@ class _ExpensesState extends State<Expenses>{
       ),
       body: Column(
         children: [
-          Text("The Chart"),
+          Chart(expenses : _registeredExpenses),//our chart will display 
           Expanded(
             child: mainContent
             )

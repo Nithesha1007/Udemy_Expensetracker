@@ -33,3 +33,29 @@ class Expense {
     return formatter.format( date);//here we use the formatter object to format the date in yMd format, format method is used to format the date in the format we want, here we use yMd format
   }
 }
+ // Our OWn constructor
+class ExpenseBucket {
+  const ExpenseBucket({
+    required this.category,
+    required this.expenses,
+  });
+
+ExpenseBucket.forCategory(List<Expense> allExpenses, this.category) //forCategory constructor. Oru particular category-ku thevaiyana expenses-ai collect panna use pandrom.
+: expenses =allExpenses.where(//where() ovvoru expense-ai check pannum.Current expense category category-kku equal-ah irundha → include pannum.Equal illa na → exclude pannum.
+  (expense)=> expense.category == category
+).toList();//where() return pannradhu Iterable. Adhai proper List<Expense>-ah convert panna .toList() use pandrom.
+
+
+final Category category;
+final List<Expense>expenses;
+
+double get totalExpenses{
+  double sum = 0;//Mudhala total amount 0-la start aagum.
+//expenses list-la irukkura ovvoru Expense object-ai one by one expense variable-kulla edukkum.
+  for(final expense in expenses){//Indha code-la for-in loop use pandradhu expenses list-la irukkura ovvoru expense-oda amount-ai one by one add panni total calculate panna.
+    sum += expense.amount;//Current expense-oda amount-ai sum-kooda add pannum.
+  }
+  return sum;//lla expense amount-um add pannina piragu final total-ai return pannum. Inga result 500.
+}
+
+  }
